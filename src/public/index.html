@@ -4,45 +4,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todo Ilovasi</title>
-  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js"></script>
 </head>
-<body>
-  <div id="auth-container">
-    <h2>Ro‘yxatdan o‘tish</h2>
-    <form id="register-form">
-      <input type="text" id="reg-username" placeholder="Foydalanuvchi nomi" required>
-      <input type="password" id="reg-password" placeholder="Parol" required>
-      <button type="submit">Ro‘yxatdan o‘tish</button>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+  <div id="auth-container" class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+    <h2 class="text-2xl font-bold text-center mb-4">Ro‘yxatdan o‘tish</h2>
+    <form id="register-form" class="space-y-4">
+      <input type="text" id="reg-username" placeholder="Foydalanuvchi nomi" required
+             class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <input type="password" id="reg-password" placeholder="Parol" required
+             class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+        Ro‘yxatdan o‘tish
+      </button>
     </form>
-    <h2>Tizimga kirish</h2>
-    <form id="login-form">
-      <input type="text" id="login-username" placeholder="Foydalanuvchi nomi" required>
-      <input type="password" id="login-password" placeholder="Parol" required>
-      <button type="submit">Kirish</button>
+    <h2 class="text-2xl font-bold text-center my-4">Tizimga kirish</h2>
+    <form id="login-form" class="space-y-4">
+      <input type="text" id="login-username" placeholder="Foydalanuvchi nomi" required
+             class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <input type="password" id="login-password" placeholder="Parol" required
+             class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+        Kirish
+      </button>
     </form>
   </div>
 
-  <div id="app-container" style="display: none;">
-    <h2>Xush kelibsiz, <span id="username"></span>!</h2>
-    <button id="logout">Chiqish</button>
-    
-    <h3>Profilni yangilash</h3>
-    <form id="profile-form">
-      <input type="text" id="profile-username" placeholder="Yangi foydalanuvchi nomi">
-      <input type="password" id="profile-password" placeholder="Yangi parol">
-      <button type="submit">Yangilash</button>
-    </form>
+  <div id="app-container" class="hidden bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-2xl font-bold">Xush kelibsiz, <span id="username" class="text-blue-500"></span>!</h2>
+      <button id="logout" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Chiqish</button>
+    </div>
 
-    <h3>Yangi Todo</h3>
-    <form id="todo-form">
-      <input type="text" id="todo-title" placeholder="Sarlavha" required>
-      <textarea id="todo-description" placeholder="Tavsif"></textarea>
-      <button type="submit">Qo'shish</button>
-    </form>
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold mb-2">Profilni yangilash</h3>
+      <form id="profile-form" class="space-y-4">
+        <input type="text" id="profile-username" placeholder="Yangi foydalanuvchi nomi"
+               class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="password" id="profile-password" placeholder="Yangi parol"
+               class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+          Yangilash
+        </button>
+      </form>
+    </div>
 
-    <h3>Todolar</h3>
-    <ul id="todo-list"></ul>
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold mb-2">Yangi Todo</h3>
+      <form id="todo-form" class="space-y-4">
+        <input type="text" id="todo-title" placeholder="Sarlavha" required
+               class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <textarea id="todo-description" placeholder="Tavsif" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+          Qo‘shish
+        </button>
+      </form>
+    </div>
+
+    <div>
+      <h3 class="text-xl font-semibold mb-2">Todolar</h3>
+      <ul id="todo-list" class="space-y-2"></ul>
+    </div>
   </div>
 
   <script src="script.js"></script>

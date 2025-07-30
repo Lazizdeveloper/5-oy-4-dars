@@ -1,220 +1,3 @@
-// const socket = io();
-// let token = localStorage.getItem('token');
-// let currentUser = null;
-
-// const authContainer = document.getElementById('auth-container');
-// const appContainer = document.getElementById('app-container');
-// const usernameSpan = document.getElementById('username');
-// const todoList = document.getElementById('todo-list');
-
-// if (token) {
-//   fetchTodos();
-//   showApp();
-// }
-
-// document.getElementById('register-form').addEventListener('submit', async (e) => {
-//   e.preventDefault();
-//   const username = document.getElementById('reg-username').value;
-//   const password = document.getElementById('reg-password').value;
-
-//   try {
-//     const response = await fetch('/api/register', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ username, password }),
-//     });
-//     const data = await response.json();
-//     if (data.token) {
-//       token = data.token;
-//       localStorage.setItem('token', token);
-//       fetchTodos();
-//       showApp();
-//     } else {
-//       alert(data.error);
-//     }
-//   } catch (error) {
-//     alert('Xato yuz berdi');
-//   }
-// });
-
-// document.getElementById('login-form').addEventListener('submit', async (e) => {
-//   e.preventDefault();
-//   const username = document.getElementById('login-username').value;
-//   const password = document.getElementById('login-password').value;
-
-//   try {
-//     const response = await fetch('/api/login', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ username, password }),
-//     });
-//     const data = await response.json();
-//     if (data.token) {
-//       token = data.token;
-//       localStorage.setItem('token', token);
-//       fetchTodos();
-//       showApp();
-//     } else {
-//       alert(data.error);
-//     }
-//   } catch (error) {
-//     alert('Xato yuz berdi');
-//   }
-// });
-
-// document.getElementById('profile-form').addEventListener('submit', async (e) => {
-//   e.preventDefault();
-//   const username = document.getElementById('profile-username').value;
-//   const password = document.getElementById('profile-password').value;
-
-//   try {
-//     const response = await fetch('/api/profile', {
-//       method: 'PUT',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Bearer ${token}`,
-//       },
-//       body: JSON.stringify({ username, password }),
-//     });
-//     const data = await response.json();
-//     alert(data.message || data.error);
-//     if (response.ok) {
-//       usernameSpan.textContent = username || currentUser;
-//       currentUser = username || currentUser;
-//     }
-//   } catch (error) {
-//     alert('Xato yuz berdi');
-//   }
-// });
-
-// document.getElementById('todo-form').addEventListener('submit', async (e) => {
-//   e.preventDefault();
-//   const title = document.getElementById('todo-title').value;
-//   const description = document.getElementById('todo-description').value;
-
-//   try {
-//     const response = await fetch('/api/todos', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Bearer ${token}`,
-//       },
-//       body: JSON.stringify({ title, description }),
-//     });
-//     const data = await response.json();
-//     if (response.ok) {
-//       document.getElementById('todo-form').reset();
-//     } else {
-//       alert(data.error);
-//     }
-//   } catch (error) {
-//     alert('Xato yuz berdi');
-//   }
-// });
-
-// document.getElementById('logout').addEventListener('click', () => {
-//   localStorage.removeItem('token');
-//   token = null;
-//   currentUser = null;
-//   authContainer.style.display = 'block';
-//   appContainer.style.display = 'none';
-//   todoList.innerHTML = '';
-// });
-
-// async function fetchTodos() {
-//   try {
-//     const response = await fetch('/api/todos', {
-//       headers: { 'Authorization': `Bearer ${token}` },
-//     });
-//     const todos = await response.json();
-//     todoList.innerHTML = '';
-//     todos.forEach(todo => renderTodo(todo));
-//     const decoded = jwt_decode(token);
-//     currentUser = decoded.username;
-//     usernameSpan.textContent = currentUser;
-//   } catch (error) {
-//     alert('Todolarni olishda xato yuz berdi');
-//   }
-// }
-
-// function renderTodo(todo) {
-//   const li = document.createElement('li');
-//   li.className = todo.completed ? 'completed' : '';
-//   li.innerHTML = `
-//     <span>${todo.title} - ${todo.description || ''}</span>
-//     <div>
-//       <button onclick="toggleTodo('${todo._id}', ${!todo.completed})">${todo.completed ? 'Bekor qilish' : 'Bajarildi'}</button>
-//       <button onclick="deleteTodo('${todo._id}')">O‘chirish</button>
-//     </div>
-//   `;
-//   todoList.appendChild(li);
-// }
-
-// async function toggleTodo(id, completed) {
-//   try {
-//     const response = await fetch(`/api/todos/${id}`, {
-//       method: 'PUT',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Bearer ${token}`,
-//       },
-//       body: JSON.stringify({ completed }),
-//     });
-//     if (!response.ok) {
-//       const data = await response.json();
-//       alert(data.error);
-//     }
-//   } catch (error) {
-//     alert('Xato yuz berdi');
-//   }
-// }
-
-// async function deleteTodo(id) {
-//   try {
-//     const response = await fetch(`/api/todos/${id}`, {
-//       method: 'DELETE',
-//       headers: { 'Authorization': `Bearer ${token}` },
-//     });
-//     const data = await response.json();
-//     alert(data.message || data.error);
-//   } catch (error) {
-//     alert('Xato yuz berdi');
-//   }
-// }
-
-// socket.on('todoCreated', (todo) => {
-//   if (todo.userId === jwt_decode(token).id) {
-//     renderTodo(todo);
-//   }
-// });
-
-// socket.on('todoUpdated', (todo) => {
-//   if (todo.userId === jwt_decode(token).id) {
-//     fetchTodos();
-//   }
-// });
-
-// socket.on('todoDeleted', (id) => {
-//   fetchTodos();
-// });
-
-// socket.on('profileUpdated', (data) => {
-//   if (data.id === jwt_decode(token).id) {
-//     usernameSpan.textContent = data.username;
-//     currentUser = data.username;
-//   }
-// });
-
-// // jwt_decode funksiyasi (oddiy versiya)
-// function jwt_decode(token) {
-//   const base64Url = token.split('.')[1];
-//   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-//   const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
-//     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-//   }).join(''));
-//   return JSON.parse(jsonPayload);
-// }
-
 const socket = io();
 let token = localStorage.getItem('token');
 let currentUser = null;
@@ -225,6 +8,7 @@ const usernameSpan = document.getElementById('username');
 const todoList = document.getElementById('todo-list');
 
 if (token) {
+  fetchUserData();
   fetchTodos();
   showApp();
 }
@@ -235,7 +19,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
   const password = document.getElementById('reg-password').value;
 
   try {
-    const response = await fetch('/api/register', {
+    const response = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
@@ -248,6 +32,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
       usernameSpan.textContent = username;
       fetchTodos();
       showApp();
+      alert(data.message || 'Ro‘yxatdan o‘tish muvaffaqiyatli');
     } else {
       alert(data.message || data.error || 'Ro‘yxatdan o‘tishda xato');
     }
@@ -262,7 +47,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
   const password = document.getElementById('login-password').value;
 
   try {
-    const response = await fetch('/api/login', {
+    const response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
@@ -275,6 +60,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
       usernameSpan.textContent = username;
       fetchTodos();
       showApp();
+      alert(data.message || 'Kirish muvaffaqiyatli');
     } else {
       alert(data.message || data.error || 'Kirishda xato');
     }
@@ -289,7 +75,7 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
   const password = document.getElementById('profile-password').value;
 
   try {
-    const response = await fetch('/api/profile', {
+    const response = await fetch('/api/auth/profile', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -327,6 +113,7 @@ document.getElementById('todo-form').addEventListener('submit', async (e) => {
     const data = await response.json();
     if (response.ok) {
       document.getElementById('todo-form').reset();
+      alert(data.message || 'Todo qo‘shildi');
     } else {
       alert(data.message || data.error || 'Todo qo‘shishda xato');
     }
@@ -339,8 +126,8 @@ document.getElementById('logout').addEventListener('click', () => {
   localStorage.removeItem('token');
   token = null;
   currentUser = null;
-  authContainer.style.display = 'block';
-  appContainer.style.display = 'none';
+  authContainer.classList.remove('hidden');
+  appContainer.classList.add('hidden');
   todoList.innerHTML = '';
 });
 
@@ -359,19 +146,45 @@ async function fetchTodos() {
     alert('Todolarni olishda xato: ' + error.message);
     localStorage.removeItem('token');
     token = null;
-    authContainer.style.display = 'block';
-    appContainer.style.display = 'none';
+    authContainer.classList.remove('hidden');
+    appContainer.classList.add('hidden');
+  }
+}
+
+async function fetchUserData() {
+  try {
+    const response = await fetch('/api/todos', {
+      headers: { 'Authorization': `Bearer ${token}` },
+    });
+    if (response.ok) {
+      const decoded = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+      currentUser = decoded.username;
+      usernameSpan.textContent = currentUser;
+    } else {
+      throw new Error('Foydalanuvchi ma’lumotlari olinmadi');
+    }
+  } catch (error) {
+    localStorage.removeItem('token');
+    token = null;
+    authContainer.classList.remove('hidden');
+    appContainer.classList.add('hidden');
   }
 }
 
 function renderTodo(todo) {
   const li = document.createElement('li');
-  li.className = todo.completed ? 'completed' : '';
+  li.className = `flex justify-between items-center p-4 border rounded-lg ${todo.completed ? 'bg-gray-200 line-through' : 'bg-white'}`;
   li.innerHTML = `
-    <span>${todo.title} - ${todo.description || ''}</span>
-    <div>
-      <button onclick="toggleTodo('${todo._id}', ${!todo.completed})">${todo.completed ? 'Bekor qilish' : 'Bajarildi'}</button>
-      <button onclick="deleteTodo('${todo._id}')">O‘chirish</button>
+    <span>${todo.title} ${todo.description ? `- ${todo.description}` : ''}</span>
+    <div class="space-x-2">
+      <button onclick="toggleTodo('${todo._id}', ${!todo.completed})"
+              class="bg-${todo.completed ? 'yellow' : 'green'}-500 text-white px-3 py-1 rounded hover:bg-${todo.completed ? 'yellow' : 'green'}-600">
+        ${todo.completed ? 'Bekor qilish' : 'Bajarildi'}
+      </button>
+      <button onclick="deleteTodo('${todo._id}')"
+              class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+        O‘chirish
+      </button>
     </div>
   `;
   todoList.appendChild(li);
@@ -413,6 +226,11 @@ async function deleteTodo(id) {
   } catch (error) {
     alert('Xato yuz berdi: ' + error.message);
   }
+}
+
+function showApp() {
+  authContainer.classList.add('hidden');
+  appContainer.classList.remove('hidden');
 }
 
 socket.on('todoCreated', (todo) => {
