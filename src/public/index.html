@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo Ilovasi</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js"></script>
+</head>
+<body>
+  <div id="auth-container">
+    <h2>Ro‘yxatdan o‘tish</h2>
+    <form id="register-form">
+      <input type="text" id="reg-username" placeholder="Foydalanuvchi nomi" required>
+      <input type="password" id="reg-password" placeholder="Parol" required>
+      <button type="submit">Ro‘yxatdan o‘tish</button>
+    </form>
+    <h2>Tizimga kirish</h2>
+    <form id="login-form">
+      <input type="text" id="login-username" placeholder="Foydalanuvchi nomi" required>
+      <input type="password" id="login-password" placeholder="Parol" required>
+      <button type="submit">Kirish</button>
+    </form>
+  </div>
+
+  <div id="app-container" style="display: none;">
+    <h2>Xush kelibsiz, <span id="username"></span>!</h2>
+    <button id="logout">Chiqish</button>
+    
+    <h3>Profilni yangilash</h3>
+    <form id="profile-form">
+      <input type="text" id="profile-username" placeholder="Yangi foydalanuvchi nomi">
+      <input type="password" id="profile-password" placeholder="Yangi parol">
+      <button type="submit">Yangilash</button>
+    </form>
+
+    <h3>Yangi Todo</h3>
+    <form id="todo-form">
+      <input type="text" id="todo-title" placeholder="Sarlavha" required>
+      <textarea id="todo-description" placeholder="Tavsif"></textarea>
+      <button type="submit">Qo'shish</button>
+    </form>
+
+    <h3>Todolar</h3>
+    <ul id="todo-list"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
